@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="SkyCast is a weather dashboard for current conditions and forecasts."
+    >
+
+    <title>SkyCast | Weather Dashboard</title>
+
+    <!-- Connect the CSS file -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Connect the JavaScript file -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="app-container">
+
+        <!-- Header -->
+        <header class="app-header">
+            <a class="brand" href="#" aria-label="SkyCast home">
+                <span class="brand-icon" aria-hidden="true">☀</span>
+                <span>SkyCast</span>
+            </a>
+
+            <p class="header-tagline">
+                Your weather, beautifully forecast.
+            </p>
+        </header>
+
+        <main>
+            <!-- Page introduction -->
+            <section class="intro-section" aria-labelledby="page-title">
+                <p class="eyebrow">YOUR PERSONAL WEATHER STATION</p>
+                <h1 id="page-title">Weather at a glance.</h1>
+                <p class="intro-text">
+                    Find the forecast for your city, wherever you are.
+                </p>
+            </section>
+
+            <!-- City search -->
+            <section class="search-section" aria-label="Search for weather">
+                <form id="search-form" class="search-form">
+                    <label class="sr-only" for="city-input">
+                        Enter a city name
+                    </label>
+
+                    <span class="search-icon" aria-hidden="true">⌕</span>
+
+                    <input
+                        type="text"
+                        id="city-input"
+                        name="city"
+                        placeholder="Search a city, e.g. Delhi"
+                        autocomplete="off"
+                        maxlength="100"
+                        required
+                    >
+
+                    <button type="submit" id="search-button">
+                        Search
+                    </button>
+                </form>
+
+                <button
+                    type="button"
+                    id="location-button"
+                    class="location-button"
+                >
+                    <span aria-hidden="true">◎</span>
+                    Use my location
+                </button>
+            </section>
+
+            <!-- Loading and error messages -->
+            <p
+                id="status-message"
+                class="status-message"
+                role="status"
+                aria-live="polite"
+            >
+                Welcome to SkyCast! Search for a city to see its weather.
+            </p>
+
+            <!-- Current weather -->
+            <section
+                id="current-weather"
+                class="current-weather weather-panel"
+                aria-labelledby="current-heading"
+            >
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">RIGHT NOW</p>
+                        <h2 id="current-heading">Current weather</h2>
+                    </div>
+
+                    <span id="last-updated" class="last-updated">
+                        Awaiting data
+                    </span>
+                </div>
+
+                <div class="current-main">
+                    <div class="current-location">
+                        <h3 id="city-name">Search for a city</h3>
+                        <p id="weather-description">
+                            Your forecast starts here
+                        </p>
+                    </div>
+
+                    <div class="weather-symbol" aria-hidden="true">
+                        <span id="weather-icon">🌤️</span>
+                    </div>
+
+                    <div class="temperature-block">
+                        <p class="temperature">
+                            <span id="temperature">--</span><span
+                                id="temperature-unit"
+                            >°C</span>
+                        </p>
+
+                        <p class="feels-like">
+                            Feels like
+                            <span id="feels-like">--</span>°
+                        </p>
+                    </div>
+                </div>
+
+                <div class="unit-controls" aria-label="Temperature unit">
+                    <span>Temperature:</span>
+
+                    <button
+                        type="button"
+                        id="celsius-button"
+                        class="unit-button active"
+                        aria-pressed="true"
+                    >
+                        °C
+                    </button>
+
+                    <button
+                        type="button"
+                        id="fahrenheit-button"
+                        class="unit-button"
+                        aria-pressed="false"
+                    >
+                        °F
+                    </button>
+                </div>
+
+                <div class="weather-details">
+                    <article class="detail-card">
+                        <span class="detail-icon" aria-hidden="true">💧</span>
+                        <p class="detail-label">Humidity</p>
+                        <p class="detail-value">
+                            <span id="humidity">--</span><span>%</span>
+                        </p>
+                    </article>
+
+                    <article class="detail-card">
+                        <span class="detail-icon" aria-hidden="true">💨</span>
+                        <p class="detail-label">Wind speed</p>
+                        <p class="detail-value">
+                            <span id="wind-speed">--</span>
+                            <span id="wind-unit">km/h</span>
+                        </p>
+                    </article>
+
+                    <article class="detail-card">
+                        <span class="detail-icon" aria-hidden="true">🌧️</span>
+                        <p class="detail-label">Precipitation</p>
+                        <p class="detail-value">
+                            <span id="precipitation">--</span><span> mm</span>
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Hourly forecast -->
+            <section
+                class="forecast-section weather-panel"
+                aria-labelledby="hourly-heading"
+            >
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">THE NEXT FEW HOURS</p>
+                        <h2 id="hourly-heading">Hourly forecast</h2>
+                    </div>
+                </div>
+
+                <div id="hourly-forecast" class="hourly-grid">
+                    <p class="empty-forecast">
+                        Search for a city to load the hourly forecast.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Seven-day forecast -->
+            <section
+                class="forecast-section weather-panel"
+                aria-labelledby="daily-heading"
+            >
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">PLAN AHEAD</p>
+                        <h2 id="daily-heading">7-day forecast</h2>
+                    </div>
+                </div>
+
+                <div id="daily-forecast" class="daily-list">
+                    <p class="empty-forecast">
+                        Your upcoming forecast will appear here.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Made with curiosity and a little sunshine ☀️</p>
+            <p>Weather data provided by Open-Meteo.</p>
+        </footer>
+
+    </div>
+</body>
+</html>
